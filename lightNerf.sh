@@ -5,7 +5,7 @@
 SBDIRPERSIST="$(tail -n 2 "${0##*/}" | grep '#SBDIRPersist' | sed 's/#SBDIRPersist: //')"
 
 function readDir {
-  printf "Please enter the location of your starbound directory: [${SBDIRPERSIST}]"
+  printf "Please enter the location of your starbound directory: [${SBDIRPERSIST}] "
   read SBDIR
   echo ''
 }
@@ -32,7 +32,7 @@ elif [ ! -d "$SBDIR" ] ; then
   echo "Sorry, the directory '$SBDIR' does not seem to exist."
   readDir
 elif [ -d "$SBDIR" ] ; then
-  sed -i "s,^#SBDIRPersist: .*,#SBDIRPersist: ${SBDIR},"
+  sed -i "s,^#SBDIRPersist: .*,#SBDIRPersist: ${SBDIR}," "${0##*/}"
 fi
 readMods
 if [ "$MODSOPT" != "Y" ] && [ "$MODSOPT" != "y" ] && [ "$MODSOPT" != "N" ] && [ "$MODSOPT" != "n" ] && [ ! -z "$MODSOPT" ] ; then
