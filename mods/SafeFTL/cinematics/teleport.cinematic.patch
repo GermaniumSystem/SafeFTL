@@ -1,0 +1,82 @@
+[
+  {
+    "op": "test",
+    "path": "/skippable",
+    "value": false
+  },
+  {
+    "op": "replace",
+    "path": "/panels/1",
+    "value": {
+      "drawables": [
+        {
+          "image": "/cinematics/starfield0.png"
+        }
+      ],
+      "keyframes": [
+        {
+          "timecode": 0,
+          "zoom": 1.5,
+          "alpha": 1,
+          "position": [
+            480,
+            270
+          ]
+        },
+        {
+          "timecode": 10,
+          "zoom": 3,
+          "alpha": 1,
+          "position": [
+            480,
+            270
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "op": "remove",
+    "path": "/panels/12"
+  },
+  {
+    "op": "remove",
+    "path": "/panels/11"
+  },
+  {
+    "op": "remove",
+    "path": "/panels/10"
+  },
+  {
+    "op": "remove",
+    "path": "/panels/9"
+  },
+  {
+    "op": "remove",
+    "path": "/panels/8"
+  },
+  {
+    "op": "remove",
+    "path": "/panels/7"
+  },
+  {
+    "op": "remove",
+    "path": "/panels/6"
+  },
+  {
+    "op": "remove",
+    "path": "/panels/5"
+  },
+  {
+    "op": "remove",
+    "path": "/panels/4"
+  },
+  {
+    "op": "remove",
+    "path": "/panels/3"
+  },
+  {
+    "op": "remove",
+    "path": "/panels/2"
+  }
+]

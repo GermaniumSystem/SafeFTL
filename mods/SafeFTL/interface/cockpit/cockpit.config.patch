@@ -1,0 +1,4 @@
+[
+{"op":"replace","path":"/ftlAnimation/jump/0","value":141},
+{"op":"replace","path":"/ftlAnimation/jump/1","value":141}
+]

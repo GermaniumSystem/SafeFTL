@@ -1,0 +1,5 @@
+[
+{"op":"remove","path":"/flickerDistance"},
+{"op":"remove","path":"/flickerStrength"},
+{"op":"remove","path":"/flickerTiming"}
+]

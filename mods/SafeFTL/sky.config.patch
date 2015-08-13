@@ -1,0 +1,40 @@
+[
+  {
+    "op": "replace",
+    "path": "/flyMaxVelocity",
+    "value": 500
+  },
+  {
+    "op": "replace",
+    "path": "/flyingTimer",
+    "value": 10
+  },
+  {
+    "op": "replace",
+    "path": "/flashTimer",
+    "value": 0
+  },
+  {
+    "op": "replace",
+    "path": "/disembarkPath/0",
+    "value": {
+      "offset": [
+        300,
+        300
+      ],
+      "rotation": 0,
+      "time": 10
+    }
+  },
+  {
+    "op": "replace",
+    "path": "/arrivalOrigin/rotation",
+    "value": 0
+  },
+  {
+    "op": "replace",
+    "path": "/stars/hyperlist",
+    "value": ["assetmissing.png", "assetmissing.png", "assetmissing.png", "assetmissing.png", "assetmissing.png"]
+  }
+]
+

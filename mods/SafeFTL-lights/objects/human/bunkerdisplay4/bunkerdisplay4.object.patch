@@ -1,0 +1,7 @@
+[
+{"op":"remove","path":"/flickerIntensityVariance"},
+{"op":"remove","path":"/flickerMaxIntensity"},
+{"op":"remove","path":"/flickerMinIntensity"},
+{"op":"remove","path":"/flickerPeriod"},
+{"op":"remove","path":"/flickerPeriodVariance"}
+]
