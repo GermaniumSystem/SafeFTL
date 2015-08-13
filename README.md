@@ -23,7 +23,7 @@ Due to the sheer volume of objects to process, it would be impractical to remove
 The script is capable of generating patches for objects in the vanilla assets.pak, modpak files in giraffe_storage/mods, and conventional mods in giraffe_storage/mods.
 
 #### package.sh  
-This is a fairly simple script that makes the packaging process take place in a single script. The prompts should make it fairly intuitive.
+This is a fairly simple script that makes the packaging process happen in a single place. The prompts should make it fairly intuitive.
 
 #### clean.sh  
 This script is really a single command to recursively remove all gedit temp files from the project directory.
