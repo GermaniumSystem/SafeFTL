@@ -2,7 +2,7 @@
 
 #Locates all objects with lighting flicker and creates a patch file to remove said flicker.
 
-SBDIRPERSIST="$(tail -n 2 "${0##*/}" | grep '#SBDIRPersist' | sed 's/#SBDIRPersist: /media/Internal-1TB/LinDATA/Steam/SteamApps/common/Starbound.stable
+SBDIRPERSIST="$(tail -n 2 "${0##*/}" | grep '#SBDIRPersist' | sed 's/#SBDIRPersist: //')"
 
 function readDir {
   printf "Please enter the location of your starbound directory: [${SBDIRPERSIST}]"
@@ -32,7 +32,7 @@ elif [ ! -d "$SBDIR" ] ; then
   echo "Sorry, the directory '$SBDIR' does not seem to exist."
   readDir
 elif [ -d "$SBDIR" ] ; then
-  sed -i "s,#SBDIRPersist: /media/Internal-1TB/LinDATA/Steam/SteamApps/common/Starbound.stable
+  sed -i "s,^#SBDIRPersist: .*,#SBDIRPersist: ${SBDIR},"
 fi
 readMods
 if [ "$MODSOPT" != "Y" ] && [ "$MODSOPT" != "y" ] && [ "$MODSOPT" != "N" ] && [ "$MODSOPT" != "n" ] && [ ! -z "$MODSOPT" ] ; then
