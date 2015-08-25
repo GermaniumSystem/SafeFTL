@@ -160,4 +160,4 @@ fi
 
 #IMPORTANT: The commented out SBDIRPersist must be at the end of the file! It's actually used by the script!
 #This feels incredibly cheaty and like a terrible idea, but it works and allows persistant values.
-#SBDIRPersist: /media/Internal-1TB/LinDATA/Steam/SteamApps/common/Starbound.nightly
+#SBDIRPersist: /media/Internal-1TB/LinDATA/Steam/SteamApps/common/Starbound.stable
