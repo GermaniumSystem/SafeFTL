@@ -34,7 +34,7 @@
   {
     "op": "replace",
     "path": "/stars/hyperlist",
-    "value": ["assetmissing.png", "assetmissing.png", "assetmissing.png", "assetmissing.png", "assetmissing.png"]
+    "value": ["/assetmissing.png", "/assetmissing.png", "/assetmissing.png", "/assetmissing.png", "/assetmissing.png"]
   }
 ]
 

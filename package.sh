@@ -163,10 +163,10 @@ echo "Finished packaging 'SafeFTL $DATE'"
 
 
 #IMPORTANT: Do not add anything below this line! These comments are used to store values!
-#GAMEVERPersist: Pleased Giraffe
-#SAFEFTLTOTALPersist: 18430
+#GAMEVERPersist: Glad Giraffe
+#SAFEFTLTOTALPersist: 18435
 #SAFEFTLLIGHTSTOTALPersist: 736748
 #SAFEFTLMODDEDTOTALPersist: 0
-#SAFEFTLVERPersist: 1.4
+#SAFEFTLVERPersist: 1.5
 #SAFEFTLLIGHTSVERPersist: 1.5
 #SAFEFTLMODDEDVERPersist: 0
