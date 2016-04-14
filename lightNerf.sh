@@ -2,7 +2,14 @@
 
 #Locates all objects with lighting flicker and creates a patch file to remove said flicker.
 
-SBDIRPERSIST="$(tail -n 2 "${0##*/}" | grep '#SBDIRPersist' | sed 's/#SBDIRPersist: //')"
+PERSISTFILE='SafeFTL.persist'
+
+if grep -q '^SBDIRPersist: ' "$PERSISTFILE" ; then
+  SBDIRPERSIST="$(grep '^SBDIRPersist' "$PERSISTFILE" | sed 's/^SBDIRPersist: //')"
+else
+  echo "SBDIRPersist: $HOME/.local/share/Steam/steamapps/common/Starbound/" >> "$PERSISTFILE"
+  SBDIRPERSIST="$HOME/.local/share/Steam/steamapps/common/Starbound/"
+fi
 
 function readDir {
   printf "Please enter the location of your starbound directory: [${SBDIRPERSIST}] "
@@ -32,7 +39,7 @@ elif [ ! -d "$SBDIR" ] ; then
   echo "Sorry, the directory '$SBDIR' does not seem to exist."
   readDir
 elif [ -d "$SBDIR" ] ; then
-  sed -i "s,^#SBDIRPersist: .*,#SBDIRPersist: ${SBDIR}," "${0##*/}"
+  sed -i "s,^SBDIRPersist: .*,SBDIRPersist: ${SBDIR}," "$PERSISTFILE"
 fi
 readMods
 if [ "$MODSOPT" != "Y" ] && [ "$MODSOPT" != "y" ] && [ "$MODSOPT" != "N" ] && [ "$MODSOPT" != "n" ] && [ ! -z "$MODSOPT" ] ; then
@@ -156,8 +163,3 @@ if [ "$MODSOPT" == "Y" ] || [ "$MODSOPT" == "y" ] ; then
   echo "Patching..."
   genPatches
 fi
-
-
-#IMPORTANT: The commented out SBDIRPersist must be at the end of the file! It's actually used by the script!
-#This feels incredibly cheaty and like a terrible idea, but it works and allows persistant values.
-#SBDIRPersist: /media/Internal-1TB/LinDATA/Steam/SteamApps/common/Starbound.stable

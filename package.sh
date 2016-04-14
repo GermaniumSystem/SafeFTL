@@ -2,6 +2,51 @@
 
 ##This is just a quick little utility script to package the mod with a nice filename, no temp files, etc.
 
+PERSISTFILE='SafeFTL.persist'
+
+#Establish all persist values and populate if needed. (Come back and make this more elegant, future me.)
+if grep -q '^GAMEVERPersist: ' "$PERSISTFILE" ; then
+  GAMEVERPERSIST="$(grep '^GAMEVERPersist' "$PERSISTFILE" | sed 's/^GAMEVERPersist: //')"
+else
+  echo "GAMEVERPersist: Glad Giraffe" >> "$PERSISTFILE"
+  GAMEVERPERSIST="Glad Giraffe"
+fi
+if grep -q '^SAFEFTLTOTALPersist: ' "$PERSISTFILE" ; then
+  SAFEFTLTOTALPERSIST="$(grep '^SAFEFTLTOTALPersist' "$PERSISTFILE" | sed 's/^SAFEFTLTOTALPersist: //')"
+else
+  echo "SAFEFTLTOTALPersist: 0" >> "$PERSISTFILE"
+  SAFEFTLTOTALPERSIST="0"
+fi
+if grep -q '^SAFEFTLLIGHTSTOTALPersist: ' "$PERSISTFILE" ; then
+  SAFEFTLLIGHTSTOTALPERSIST="$(grep '^SAFEFTLLIGHTSTOTALPersist' "$PERSISTFILE" | sed 's/^SAFEFTLLIGHTSTOTALPersist: //')"
+else
+  echo "SAFEFTLLIGHTSTOTALPersist: 0" >> "$PERSISTFILE"
+  SAFEFTLLIGHTSTOTALPERSIST="0"
+fi
+if grep -q '^SAFEFTLMODDEDTOTALPersist: ' "$PERSISTFILE" ; then
+  SAFEFTLMODDEDTOTALPERSIST="$(grep '^SAFEFTLMODDEDTOTALPersist' "$PERSISTFILE" | sed 's/^SAFEFTLMODDEDTOTALPersist: //')"
+else
+  echo "SAFEFTLMODDEDTOTALPersist: 0" >> "$PERSISTFILE"
+  SAFEFTLMODDEDTOTALPERSIST="0"
+fi
+if grep -q '^SAFEFTLVERPersist: ' "$PERSISTFILE" ; then
+  SAFEFTLVERPERSIST="$(grep '^SAFEFTLVERPersist' "$PERSISTFILE" | sed 's/^SAFEFTLVERPersist: //')"
+else
+  echo "SAFEFTLVERPersist: 0.1" >> "$PERSISTFILE"
+  SAFEFTLVERPERSIST="0.1"
+fi
+if grep -q '^SAFEFTLLIGHTSVERPersist: ' "$PERSISTFILE" ; then
+  SAFEFTLLIGHTSVERPERSIST="$(grep '^SAFEFTLLIGHTSVERPersist' "$PERSISTFILE" | sed 's/^SAFEFTLLIGHTSVERPersist: //')"
+else
+  echo "SAFEFTLLIGHTSVERPersist: 0.1" >> "$PERSISTFILE"
+  SAFEFTLLIGHTSVERPERSIST="0.1"
+fi
+if grep -q '^SAFEFTLMODDEDVERPersist: ' "$PERSISTFILE" ; then
+  SAFEFTLMODDEDVERPERSIST="$(grep '^SAFEFTLMODDEDVERPersist' "$PERSISTFILE" | sed 's/^SAFEFTLMODDEDVERPersist: //')"
+else
+  echo "SAFEFTLMODDEDVERPersist: 0.1" >> "$PERSISTFILE"
+  SAFEFTLMODDEDVERPERSIST="0.1"
+fi
 
 ##Set a nice timestamp
 DATE="$(date +%Y_%m_%d_%R)"
@@ -36,50 +81,43 @@ else
   rm -r "SafeFTL $DATE/SafeFTL-lights_modded"
 fi
 
-GAMEVERPERSIST="$(tail -n 10 "${0##*/}" | grep '#GAMEVERPersist: ' | sed 's/#GAMEVERPersist: //')"
 printf -- "Please enter the target game version: [$GAMEVERPERSIST] "
 read GAMEVER
 if [ -z "$GAMEVER" ] ; then
   GAMEVER="$GAMEVERPERSIST"
 else
-  sed -i "s/^#GAMEVERPersist: .*/#GAMEVERPersist: ${GAMEVER}/" "${0##*/}"
+  sed -i "s/^GAMEVERPersist: .*/GAMEVERPersist: ${GAMEVER}/" "$PERSISTFILE"
 fi
 
 echo "Checking for file changes..."
 SAFEFTLTOTAL="$(du -bs "SafeFTL $DATE/SafeFTL/" | awk '{print $1}')"
-SAFEFTLTOTALPERSIST="$(tail -n 10 "${0##*/}" | grep '#SAFEFTLTOTALPersist: ' | sed 's/#SAFEFTLTOTALPersist: //')"
 SAFEFTLLIGHTSTOTAL="$(du -bs "SafeFTL $DATE/SafeFTL-lights/" | awk '{print $1}')"
-SAFEFTLLIGHTSTOTALPERSIST="$(tail -n 10 "${0##*/}" | grep '#SAFEFTLLIGHTSTOTALPersist: ' | sed 's/#SAFEFTLLIGHTSTOTALPersist: //')"
 if [ "$MODSOPT" = "Y" ] || [ "$MODSOPT" = "y" ] ; then
   SAFEFTLMODDEDTOTAL="$(du -bs "SafeFTL $DATE/SafeFTL-lights_modded/" | awk '{print $1}')"
-  SAFEFTLMODDEDTOTALPERSIST="$(tail -n 10 "${0##*/}" | grep '#SAFEFTLMODDEDTOTALPersist: ' | sed 's/#SAFEFTLMODDEDTOTALPersist: //')"
 fi
 
-SAFEFTLVERPERSIST="$(tail -n 10 "${0##*/}" | grep '#SAFEFTLVERPersist: ' | sed 's/#SAFEFTLVERPersist: //')"
-SAFEFTLLIGHTSVERPERSIST="$(tail -n 10 "${0##*/}" | grep '#SAFEFTLLIGHTSVERPersist: ' | sed 's/#SAFEFTLLIGHTSVERPersist: //')"
-SAFEFTLMODDEDVERPERSIST="$(tail -n 10 "${0##*/}" | grep '#SAFEFTLMODDEDVERPersist: ' | sed 's/#SAFEFTLMODDEDVERPersist: //')"
 
 if [[ "$SAFEFTLTOTAL" != "$SAFEFTLTOTALPERSIST" ]] ; then
-  sed -i "s/^#SAFEFTLTOTALPersist: .*/#SAFEFTLTOTALPersist: ${SAFEFTLTOTAL}/" "${0##*/}"
+  sed -i "s/^SAFEFTLTOTALPersist: .*/SAFEFTLTOTALPersist: ${SAFEFTLTOTAL}/" "$PERSISTFILE"
   printf -- "SafeFTL appears to have been modified. Please specify a version: [$SAFEFTLVERPERSIST] "
   read SAFEFTLVER
   if [ -z "$SAFEFTLVER" ] ; then
     SAFEFTLVER="$SAFEFTLVERPERSIST"
   else
-    sed -i "s/^#SAFEFTLVERPersist: .*/#SAFEFTLVERPersist: ${SAFEFTLVER}/" "${0##*/}"
+    sed -i "s/^SAFEFTLVERPersist: .*/SAFEFTLVERPersist: ${SAFEFTLVER}/" "$PERSISTFILE"
   fi
 else
   echo "No changes detected in SafeFTL. Using previous version '$SAFEFTLVERPERSIST'"
   SAFEFTLVER="$SAFEFTLVERPERSIST"
 fi
 if [[ "$SAFEFTLLIGHTSTOTAL" != "$SAFEFTLLIGHTSTOTALPERSIST" ]] ; then
-  sed -i "s/^#SAFEFTLLIGHTSTOTALPersist: .*/#SAFEFTLLIGHTSTOTALPersist: ${SAFEFTLLIGHTSTOTAL}/" "${0##*/}"
+  sed -i "s/^SAFEFTLLIGHTSTOTALPersist: .*/SAFEFTLLIGHTSTOTALPersist: ${SAFEFTLLIGHTSTOTAL}/" "$PERSISTFILE"
   printf -- "SafeFTL-lights appears to have been modified. Please specify a version: [$SAFEFTLLIGHTSVERPERSIST] "
   read SAFEFTLLIGHTSVER
   if [ -z "$SAFEFTLLIGHTSVER" ] ; then
     SAFEFTLLIGHTSVER="$SAFEFTLLIGHTSVERPERSIST"
   else
-    sed -i "s/^#SAFEFTLLIGHTSVERPersist: .*/#SAFEFTLLIGHTSVERPersist: ${SAFEFTLLIGHTSVER}/" "${0##*/}"
+    sed -i "s/^SAFEFTLLIGHTSVERPersist: .*/SAFEFTLLIGHTSVERPersist: ${SAFEFTLLIGHTSVER}/" "$PERSISTFILE"
   fi
 else
   echo "No changes detected in SafeFTL-lights. Using previous version '$SAFEFTLLIGHTSVERPERSIST'"
@@ -87,13 +125,13 @@ else
 fi
 if [ "$MODSOPT" = "Y" ] || [ "$MODSOPT" = "y" ] ; then
   if [[ "$SAFEFTLMODDEDTOTAL" != "$SAFEFTLMODDEDTOTALPERSIST" ]] ; then
-    sed -i "s/^#SAFEFTLMODDEDTOTALPersist: .*/#SAFEFTLMODDEDTOTALPersist: ${SAFEFTLMODDEDTOTAL}/" "${0##*/}"
+    sed -i "s/^SAFEFTLMODDEDTOTALPersist: .*/SAFEFTLMODDEDTOTALPersist: ${SAFEFTLMODDEDTOTAL}/" "$PERSISTFILE"
     printf -- "SafeFTL-lights_modded appears to have been modified. Please specify a version: [$SAFEFTLMODDEDVERPERSIST] "
     read SAFEFTLMODDEDVER
     if [ -z "$SAFEFTLMODDEDVER" ] ; then
       SAFEFTLMODDEDVER="$SAFEFTLMODDEDVERPERSIST"
     else
-      sed -i "s/^#SAFEFTLMODDEDVERPersist: .*/#SAFEFTLMODDEDVERPersist: ${SAFEFTLMODDEDVER}/" "${0##*/}"
+      sed -i "s/^SAFEFTLMODDEDVERPersist: .*/SAFEFTLMODDEDVERPersist: ${SAFEFTLMODDEDVER}/" "$PERSISTFILE"
     fi
   else
     echo "No changes detected in SafeFTL-lights_modded. Using previous version '$SAFEFTLMODDEDVERPERSIST'"
